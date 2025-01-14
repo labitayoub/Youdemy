@@ -3,53 +3,53 @@ USE Youdemy;
 
 CREATE TABLE Users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(250),
-    prenom VARCHAR(250),
-    email VARCHAR(250),
-    `password` VARCHAR(250),
-    `role` ENUM('Etudiant', 'Enseignant', 'Administrateur'),
-    compte_statut ENUM('Actif', 'Non Actif', 'Suspensse', 'Supprimer')
+    nom VARCHAR(250) NOT NULL,
+    prenom VARCHAR(250) NOT NULL,
+    email VARCHAR(250) UNIQUE NOT NULL,
+    `password` VARCHAR(250) NOT NULL,
+    `role` ENUM('Etudiant', 'Enseignant', 'Administrateur') NOT NULL,
+    compte_statut ENUM('Actif', 'Non Actif', 'Suspensse', 'Supprimer') DEFAULT 'Non Actif' NOT NULL
 );
 
 CREATE TABLE Categorie (
-    id INT AUTO_INCREMENT PRIMARY KEY, 
-    nom VARCHAR(250)
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(250) NOT NULL
 );
 
 CREATE TABLE Tag (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nom VARCHAR(50)
+    nom VARCHAR(50) UNIQUE NOT NULL
 );
-
 
 CREATE TABLE Cours (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    titre VARCHAR(250),
+    titre VARCHAR(250) NOT NULL,
     `description` TEXT,
     contenu VARCHAR(250),
-    categorie_id INT,
+    categorie_id INT NOT NULL,
     tag_id INT,
-    FOREIGN KEY (tag_id) REFERENCES Tag(id),
-    FOREIGN KEY (categorie_id) REFERENCES Categorie(id)
+    FOREIGN KEY (categorie_id) REFERENCES Categorie(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES Tag(id) ON DELETE SET NULL ON UPDATE CASCADE
 );
 
 CREATE TABLE CoursTag (
-    Cours_id INT,
-    tag_id INT,
-    FOREIGN KEY (Cours_id) REFERENCES Cours(id),
-    FOREIGN KEY (tag_id) REFERENCES Tag(id)
+    Cours_id INT NOT NULL,
+    tag_id INT NOT NULL,
+    PRIMARY KEY (Cours_id, tag_id),
+    FOREIGN KEY (Cours_id) REFERENCES Cours(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (tag_id) REFERENCES Tag(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 CREATE TABLE DateInscription (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    Etudiant_id INT,
-    Cours_id INT,
-    date_Inscription DATETIME,
-    FOREIGN KEY (Etudiant_id) REFERENCES Users(id),
-    FOREIGN KEY (Cours_id) REFERENCES Cours(id)
+    Etudiant_id INT NOT NULL,
+    Cours_id INT NOT NULL,
+    date_Inscription DATETIME DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (Etudiant_id) REFERENCES Users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+    FOREIGN KEY (Cours_id) REFERENCES Cours(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-INSERT INTO Users (nom, prenom, email, password, role, compte_statut)
+INSERT INTO Users (nom, prenom, email, `password`, `role`, compte_statut)
 VALUES 
 ('Mohammed', 'Ayoub', 'mohammed@gmail.com', 'hfffffff', 'Etudiant', 'Non Actif'),
 ('Youness', 'Sofia', 'youness@gmail.com', 'dddddddddddd', 'Enseignant', 'Non Actif'),
@@ -73,7 +73,7 @@ VALUES
 ('Python'),
 ('SQL');
 
-INSERT INTO Cours (titre, description, contenu, categorie_id, tag_id)
+INSERT INTO Cours (titre, `description`, contenu, categorie_id, tag_id)
 VALUES 
 ('Apprendre PHP pour Débutants', 'Un cours complet pour apprendre PHP.', 'https://www.youtube.com/watch?v=php-course', 1, 1),
 ('Introduction à JavaScript', 'Apprenez les bases de JavaScript.', 'https://www.youtube.com/watch?v=javascript-course', 1, 2),
