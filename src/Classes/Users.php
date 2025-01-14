@@ -3,20 +3,22 @@ namespace App\Classes;
 
 
 class Users {
-    private $id;
-    private $nom;
-    private $prenom;
-    private $email;
-    private $password;
-    private $role;
+    protected $id;
+    protected $nom;
+    protected $prenom;
+    protected $email;
+    protected $password;
+    protected $role;
+    protected $compte_statut;
 
-    public function __construct($id, $nom, $prenom, $email, $password, $role) {
+    public function __construct($id, $nom, $prenom, $email, $password, $role, $compte_statut) {
         $this->id = $id;
         $this->nom = $nom;
         $this->prenom = $prenom;
         $this->email = $email;
         $this->password = $password;
         $this->role = $role;
+        $this->compte_statut = $compte_statut;
     }
 
     public function getId() {
@@ -47,19 +49,26 @@ class Users {
         $this->email = $email;
     }
 
-    public function getPass() {
+    public function getPassword() {
         return $this->password;
     }
 
-    public function setPass($password) {
+    public function setPassword($password) {
         $this->password = $password;
     }
 
-    public function getRolee() {
+    public function getRole() {
         return $this->role;
     }
 
-    public function setRolee($role) {
+    public function setRole($role) {
         $this->role = $role;
+    }
+    public function getcompte_statut() {
+        return $this->compte_statut;
+    }
+
+    public function setcompte_statut($compte_statut) {
+        $this->role = $compte_statut;
     }
 }
