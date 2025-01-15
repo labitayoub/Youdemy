@@ -5,7 +5,6 @@ namespace App\Controllers;
 use App\Classes\Users;
 use App\Config\Database;
 use App\Models\UserModel;
-use App\Models\NewUserModel;
 use PDO;
 
 class AuthController{
@@ -27,23 +26,23 @@ class AuthController{
 
             if($member->getRole() == "Administrateur")
             {
-                header('Location: ../users/dashboard.php');
+                header('Location: ../users/admin/dashboard.php');
                 exit();
             }
             else if($member->getRole() == "Etudiant")
             {
-              header("Location: ../users/Etudiant.php");
+              header("Location: ../users/etudiant/dashboard.php");
               exit();
             }
             else if($member->getRole() == "Enseignant")
             {
-              header("Location: ../users/Enseignant.php");
+              header("Location: ../users/enseignant/dashboard.php");
               exit();
             }
         }
     }
     public function register($nom, $prenom, $email, $password, $role) {
-        $NewUserModel = new NewUserModel();
+        $NewUserModel = new UserModel();
         $NewUserModel->addMember($nom, $prenom, $email, $password, $role);
     }
 
