@@ -11,9 +11,9 @@
     <div class="max-w-5xl mx-auto p-4 flex justify-between items-center">
     <a href="../../src/Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
     <nav class="hidden md:flex gap-4">
-            <a href="../Views/" class="hover:text-blue-600">Home</a>
-            <a href="#about" class="hover:text-blue-600">About</a>
-            <a href="#courses" class="hover:text-blue-600">Courses</a>
+            <a href="../Views/" class="hover:text-blue-600 mt-2">Home</a>
+            <a href="#about" class="hover:text-blue-600 mt-2">About</a>
+            <a href="#courses" class="hover:text-blue-600 mt-2">Courses</a>
             <a href="../Views/auth/Login.php" class="border border-blue-600 text-blue-600 px-4 py-2 rounded">Login</a>
             <a href="../Views/auth/Register.php" class="bg-blue-600 text-white px-4 py-2 rounded">Sign Up</a>
         </nav>
