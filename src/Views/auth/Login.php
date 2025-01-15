@@ -18,7 +18,21 @@
         }
     </style>
 </head>
-<body class="bg-gradient-custom min-h-screen py-20">
+
+<body>
+<header class="fixed w-full bg-white shadow">
+    <div class="max-w-5xl mx-auto p-4 flex justify-between items-center">
+        <a href="../../Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
+        <nav class="hidden md:flex gap-4">
+            <a href="../../Views/index.php" class="hover:text-blue-600">Home</a>
+            <a href="#about" class="hover:text-blue-600">About</a>
+            <a href="#courses" class="hover:text-blue-600">Courses</a>
+            <a href="../auth/Login.php" class="border border-blue-600 text-blue-600 px-4 py-2 rounded">Login</a>
+            <a href="../auth/Register.php" class="bg-blue-600 text-white px-4 py-2 rounded">Sign Up</a>
+        </nav>
+        <button class="md:hidden">☰</button>
+    </div>
+</header>
 
 <?php
 require_once "../../../vendor/autoload.php";
@@ -38,7 +52,7 @@ if(isset($_POST["submit"])) {
     }
 }
 ?>
-
+<div class="bg-gradient-custom min-h-screen py-20">
 <div class="container mx-auto px-4">
     <div class="flex justify-center">
         <div class="w-full max-w-md">
@@ -70,7 +84,7 @@ if(isset($_POST["submit"])) {
                                 </span>
                                 <input type="password" name="password" 
                                     class="flex-1 p-2.5 border border-gray-300 rounded-r-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" 
-                                    placeholder="••••••••" required>
+                                    placeholder="********" required>
                             </div>
                         </div>
 
@@ -91,6 +105,7 @@ if(isset($_POST["submit"])) {
             </div>
         </div>
     </div>
+</div>
 </div>
 
 </body>

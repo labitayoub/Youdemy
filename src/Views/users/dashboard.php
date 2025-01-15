@@ -37,13 +37,13 @@ $conn = $db->connect();
     <div class="ml-64 p-8">
 
         <h2 class="text-2xl font-bold mb-6">Dashboard</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow p-6">
                 <div class="flex items-center">
                     <div class="p-3 rounded-full bg-blue-100 text-blue-500">
                         <i class="fas fa-users text-2xl"></i>
                     </div>
-                    <div class="ml-4">
+                    <div class="ml-3">
                         <h4 class="text-gray-500 text-sm"> Total des Etudiants</h4>
                         <h3 class="text-2xl font-bold"><?php echo $totalEtudiants ?></h3>
                     </div>
@@ -54,7 +54,7 @@ $conn = $db->connect();
                     <div class="p-3 rounded-full bg-green-100 text-green-500">
                         <i class="fas fa-book text-2xl"></i>
                     </div>
-                    <div class="ml-4">
+                    <div class="ml-3">
                         <h4 class="text-gray-500 text-sm">Total des Enseignants</h4>
                         <h3 class="text-2xl font-bold"><?php echo $totalEnseignants ?></h3>
                     </div>
@@ -65,7 +65,7 @@ $conn = $db->connect();
                     <div class="p-3 rounded-full bg-yellow-100 text-yellow-500">
                         <i class="fas fa-chalkboard-teacher text-2xl"></i>
                     </div>
-                    <div class="ml-4">
+                    <div class="ml-3">
                         <h4 class="text-gray-500 text-sm">Total des des Cours </h4>
                         <h3 class="text-2xl font-bold"><?php echo $totalCours ?></h3>
                     </div>
