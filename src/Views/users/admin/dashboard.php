@@ -88,7 +88,7 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
                         <i class="fas fa-book text-2xl"></i>
                     </div>
                     <div class="ml-3">
-                        <h4 class="text-gray-500 text-sm">Total des des Cours </h4>
+                        <h4 class="text-gray-500 text-sm">Total des Cours </h4>
                         <h3 class="text-2xl font-bold"><?php echo $totalCours ?></h3>
                     </div>
                 </div>

@@ -29,7 +29,7 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
             <a href="#about" class="hover:text-blue-600">A propos de</a>
             <a href="#courses" class="hover:text-blue-600 mr-5">Cours</a>
             <a href="#courses" class="hover:text-blue-600 ml-5"><i class="fas fa-user-circle text-xl mr-1"></i>
-            Admin</a>
+            Enseignant</a>
 
         </nav>
         <button class="md:hidden">☰</button>
@@ -45,9 +45,17 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
                 <i class="fas fa-home mr-3"></i>
                 Statistiques
             </a>
-            <a href="Etudiant.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
+            <a href="etudiant.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
                 <i class="fas fa-users mr-3"></i>
                 Etudiants
+            </a>
+            <a href="creation.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
+                <i class="fas fa-users mr-3"></i>
+                Creation
+            </a>
+            <a href="gestion.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
+                <i class="fas fa-users mr-3"></i>
+                Gestion des cours
             </a>
         </nav>
     </div>
@@ -73,7 +81,7 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
                         <i class="fas fa-book text-2xl"></i>
                     </div>
                     <div class="ml-3">
-                        <h4 class="text-gray-500 text-sm">Total des des Cours </h4>
+                        <h4 class="text-gray-500 text-sm">Total des Cours </h4>
                         <h3 class="text-2xl font-bold"><?php echo $totalCours ?></h3>
                     </div>
                 </div>
