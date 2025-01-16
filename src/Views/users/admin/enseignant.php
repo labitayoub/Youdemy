@@ -25,7 +25,7 @@ $users = $conn->query("SELECT * FROM Users where role = 'Enseignant'")->fetchAll
             <a href="../../index.php" class="hover:text-blue-600">Accueil</a>
             <a href="#about" class="hover:text-blue-600">A propos de</a>
             <a href="#courses" class="hover:text-blue-600 mr-5">Cours</a>
-            <a href="#courses" class="hover:text-blue-600 ml-5"><i class="fas fa-user-circle text-xl mr-2"></i>
+            <a href="#courses" class="hover:text-blue-600 ml-5"><i class="fas fa-user-circle text-xl mr-1"></i>
             Admin</a>
 
         </nav>
@@ -50,6 +50,10 @@ $users = $conn->query("SELECT * FROM Users where role = 'Enseignant'")->fetchAll
                 <i class="fas fa-users mr-3"></i>
                 Etudiants
             </a>
+            <a href="tags.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
+                <i class="fas fa-users mr-3"></i>
+                Tags
+            </a>
         </nav>
     </div>
 
@@ -67,7 +71,7 @@ $users = $conn->query("SELECT * FROM Users where role = 'Enseignant'")->fetchAll
                                 <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Email</th>
                                 <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Role</th>
                                 <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Statut</th>
-                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Actions</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Action</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">

@@ -71,7 +71,7 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
                                 <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Email</th>
                                 <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Role</th>
                                 <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Statut</th>
-                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Actions</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Action</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">

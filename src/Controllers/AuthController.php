@@ -41,6 +41,7 @@ class AuthController{
             }
         }
     }
+    
     public function register($nom, $prenom, $email, $password, $role) {
         $NewUserModel = new UserModel();
         $NewUserModel->addMember($nom, $prenom, $email, $password, $role);

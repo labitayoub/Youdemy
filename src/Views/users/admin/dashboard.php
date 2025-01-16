@@ -53,6 +53,10 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
                 <i class="fas fa-users mr-3"></i>
                 Etudiants
             </a>
+            <a href="tags.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
+                <i class="fas fa-users mr-3"></i>
+                Tags
+            </a>
         </nav>
     </div>
 
