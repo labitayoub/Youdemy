@@ -6,12 +6,7 @@ $conn = $db->connect();
 
 $totalEtudiants = $conn->query("SELECT COUNT(*) FROM users WHERE role = 'Etudiant'")->fetchColumn();
 $totalEnseignants = $conn->query("SELECT COUNT(*) FROM users WHERE role = 'Enseignant'")->fetchColumn();
-$totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
-// $cours = $conn->query("SELECT cours.id , cours.titre , cours.description , cours.contenu , cours.categorie_id , cours.tag_id 
-// --  from cours join categorie on cours.categorie_id = categorie.id 
-        // --   join users on cours.user_id = users.id
-        // --   join ")
-           
+$totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();        
 $cours = $conn->query("
     SELECT 
         cours.id, 
