@@ -51,11 +51,3 @@ class AuthController{
 
 
 ?>
-<script>
-var messages = document.getElementsByClassName('message');
-setTimeout(function() {
-    for (var i = 0; i < messages.length; i++) {
-        messages[i].style.display = 'none';
-    }
-}, 4000);
-</script>

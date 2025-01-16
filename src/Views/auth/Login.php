@@ -40,7 +40,7 @@ use App\Controllers\AuthController;
 
 if(isset($_POST["submit"])) {
     if(empty($_POST["email"]) || empty($_POST["password"])) {
-        echo "<div id='1' class='message bg-red-500 text-white p-4 rounded-md text-center font-bold' style='z-index: 1; position: absolute; top:0; left: 38%; width: auto; '>
+        echo "<div class='message bg-red-500 text-white p-4 rounded-md text-center font-bold ' style='z-index: 1; position: absolute; top:0; left: 38%; width: auto; '>
                 L'email ou le mot de passe est vide
               </div>";
 
@@ -108,14 +108,17 @@ if(isset($_POST["submit"])) {
     </div>
 </div>
 </div>
-<script>
 
-var messages = document.getElementById('1');
-setTimeout(function() {{
-    
-        messages.style.display = 'none';
-    }
-}, 4000);
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+    var messages = document.getElementsByClassName('message');
+
+    setTimeout(function() {
+        for (var i = 0; i < messages.length; i++) {
+            messages[i].style.display = 'none';
+        }
+    }, 4000);
+})
 </script>
 </body>
 </html>

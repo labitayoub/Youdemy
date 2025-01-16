@@ -7,7 +7,26 @@ $conn = $db->connect();
 $totalEtudiants = $conn->query("SELECT COUNT(*) FROM users WHERE role = 'Etudiant'")->fetchColumn();
 $totalEnseignants = $conn->query("SELECT COUNT(*) FROM users WHERE role = 'Enseignant'")->fetchColumn();
 $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
-
+// $cours = $conn->query("SELECT cours.id , cours.titre , cours.description , cours.contenu , cours.categorie_id , cours.tag_id 
+// --  from cours join categorie on cours.categorie_id = categorie.id 
+        // --   join users on cours.user_id = users.id
+        // --   join ")
+           
+$cours = $conn->query("
+    SELECT 
+        cours.id, 
+        cours.titre, 
+        cours.description, 
+        categorie.nom AS categorie, 
+        GROUP_CONCAT(tag.nom SEPARATOR ', ') AS tags, 
+        CONCAT(users.nom, ' ', users.prenom) AS enseignant
+    FROM cours
+    JOIN categorie ON cours.categorie_id = categorie.id
+    JOIN coursTag ON cours.id = coursTag.cours_id
+    JOIN tag ON coursTag.tag_id = tag.id
+    JOIN users ON cours.user_id = users.id
+    GROUP BY cours.id
+")->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -52,6 +71,10 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
             <a href="Etudiant.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
                 <i class="fas fa-users mr-3"></i>
                 Etudiants
+            </a>
+            <a href="categories.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
+                <i class="fas fa-users mr-3"></i>
+                Catégories
             </a>
             <a href="tags.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
                 <i class="fas fa-users mr-3"></i>
@@ -102,8 +125,47 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
                 </div>
             </div>
         </main>
+        <div class="md:pl-64 flex flex-col flex-1">
+        <main class="flex-1 pt-24 pb-6 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-lg shadow p-6">
+                <h2 class="text-2xl font-semibold text-gray-800 mb-6">Liste des Cours</h2>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Titre</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Description</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Categorie</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Tags</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Enseignant</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-gray-200">
+                            <?php if (count($cours) > 0): ?>
+                                <?php foreach ($cours as $cour): ?>
+                                    <tr class="hover:bg-gray-50">
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($cour['titre']); ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($cour['description']); ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($cour['categorie']); ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($cour['tags']); ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($cour['enseignant']); ?></td>
+                                        
+                                    </tr>
+                                <?php endforeach; ?>
+                            <?php else: ?>
+                                <tr>
+                                    <td colspan="6" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">Aucun utilisateur trouvé</td>
+                                </tr>
+                            <?php endif; ?>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            </div>
+            </main>
     </div>
-
 
 </body>
 </html>
