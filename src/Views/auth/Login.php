@@ -39,10 +39,11 @@ require_once "../../../vendor/autoload.php";
 use App\Controllers\AuthController;
 
 if(isset($_POST["submit"])) {
-    if(empty($_POST["email"]) && empty($_POST["password"])) {
-        echo "<div class='bg-red-500 text-white p-4 rounded-md text-center font-bold mb-4 mx-auto max-w-md'>
+    if(empty($_POST["email"]) || empty($_POST["password"])) {
+        echo "<div id='1' class='message bg-red-500 text-white p-4 rounded-md text-center font-bold' style='z-index: 1; position: absolute; top:0; left: 38%; width: auto; '>
                 L'email ou le mot de passe est vide
               </div>";
+
     } else {
         $email = $_POST["email"];
         $password = $_POST["password"];
@@ -72,7 +73,7 @@ if(isset($_POST["submit"])) {
                                 </span>
                                 <input type="email" name="email" 
                                     class="flex-1 p-2.5 border border-gray-300 rounded-r-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" 
-                                    placeholder="email" required>
+                                    placeholder="email">
                             </div>
                         </div>
 
@@ -84,7 +85,7 @@ if(isset($_POST["submit"])) {
                                 </span>
                                 <input type="password" name="password" 
                                     class="flex-1 p-2.5 border border-gray-300 rounded-r-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" 
-                                    placeholder="********" required>
+                                    placeholder="********" >
                             </div>
                         </div>
 
@@ -107,6 +108,14 @@ if(isset($_POST["submit"])) {
     </div>
 </div>
 </div>
+<script>
 
+var messages = document.getElementById('1');
+setTimeout(function() {{
+    
+        messages.style.display = 'none';
+    }
+}, 4000);
+</script>
 </body>
 </html>

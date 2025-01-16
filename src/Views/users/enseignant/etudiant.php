@@ -22,11 +22,11 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
     <div class="max-w-5xl mx-auto p-4 flex justify-between items-center">
         <a href="../../../Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
         <nav class="hidden md:flex gap-4">
-            <a href="../../index.php" class="hover:text-blue-600">Home</a>
-            <a href="#about" class="hover:text-blue-600">About</a>
-            <a href="#courses" class="hover:text-blue-600 mr-5">Courses</a>
-            <a href="#courses" class="hover:text-blue-600 ml-5"><i class="fas fa-user-circle text-xl mr-2"></i>
-            Admin</a>
+            <a href="../../index.php" class="hover:text-blue-600">Accueil</a>
+            <a href="#about" class="hover:text-blue-600">A propos de</a>
+            <a href="#courses" class="hover:text-blue-600 mr-5">Cours</a>
+            <a href="#courses" class="hover:text-blue-600 ml-5"><i class="fas fa-user-circle text-xl mr-1"></i>
+            Enseignant</a>
 
         </nav>
         <button class="md:hidden">☰</button>
@@ -45,6 +45,14 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
             <a href="Etudiant.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
                 <i class="fas fa-users mr-3"></i>
                 Etudiants
+            </a>
+            <a href="creation.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
+                <i class="fas fa-users mr-3"></i>
+                Creation
+            </a>
+            <a href="gestion.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
+                <i class="fas fa-users mr-3"></i>
+                Gestion des cours
             </a>
         </nav>
     </div>
