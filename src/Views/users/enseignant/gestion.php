@@ -7,12 +7,7 @@ $conn = $db->connect();
 $totalEtudiants = $conn->query("SELECT COUNT(*) FROM users WHERE role = 'Etudiant'")->fetchColumn();
 $totalEnseignants = $conn->query("SELECT COUNT(*) FROM users WHERE role = 'Enseignant'")->fetchColumn();
 $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();        
-$cours = $conn->query("
-    SELECT 
-        cours.id, 
-        cours.titre, 
-        cours.description, 
-        categorie.nom AS categorie, 
+$cours = $conn->query(" SELECT cours.id,cours.titre, cours.description, categorie.nom AS categorie, 
         GROUP_CONCAT(tag.nom SEPARATOR ', ') AS tags, 
         CONCAT(users.nom, ' ', users.prenom) AS enseignant
     FROM cours
