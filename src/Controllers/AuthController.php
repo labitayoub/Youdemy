@@ -41,20 +41,15 @@ class AuthController{
             }
         }
     }
+    
     public function register($nom, $prenom, $email, $password, $role) {
         $NewUserModel = new UserModel();
         $NewUserModel->addMember($nom, $prenom, $email, $password, $role);
     }
 
+
+
 }
 
 
 ?>
-<script>
-var messages = document.getElementsByClassName('message');
-setTimeout(function() {
-    for (var i = 0; i < messages.length; i++) {
-        messages[i].style.display = 'none';
-    }
-}, 4000);
-</script>

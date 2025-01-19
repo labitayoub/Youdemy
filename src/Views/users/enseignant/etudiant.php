@@ -46,13 +46,13 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
                 <i class="fas fa-users mr-3"></i>
                 Etudiants
             </a>
-            <a href="creation.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
-                <i class="fas fa-users mr-3"></i>
-                Creation
-            </a>
             <a href="gestion.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
                 <i class="fas fa-users mr-3"></i>
                 Gestion des cours
+            </a>
+            <a href="creation.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
+                <i class="fas fa-users mr-3"></i>
+                Creation
             </a>
         </nav>
     </div>
@@ -71,7 +71,7 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
                                 <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Email</th>
                                 <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Role</th>
                                 <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Statut</th>
-                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Actions</th>
+                                <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Action</th>
                             </tr>
                         </thead>
                         <tbody class="bg-white divide-y divide-gray-200">

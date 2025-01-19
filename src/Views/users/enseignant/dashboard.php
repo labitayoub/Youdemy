@@ -38,7 +38,7 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
 
     <div class="fixed inset-y-0 left-0 w-64 bg-gray-900 text-white transform transition-transform duration-200 ease-in-out z-40">
         <div class="flex items-center justify-center h-16 bg-gray-800">
-            <h1 class="text-xl font-bold">Tableau de bord</h1>
+            <h1 class="text-xl font-bold"></h1>
         </div>
         <nav class="mt-5 px-2">
             <a href="dashboard.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
@@ -49,13 +49,13 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
                 <i class="fas fa-users mr-3"></i>
                 Etudiants
             </a>
-            <a href="creation.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
-                <i class="fas fa-users mr-3"></i>
-                Creation
-            </a>
             <a href="gestion.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
                 <i class="fas fa-users mr-3"></i>
                 Gestion des cours
+            </a>
+            <a href="creation.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
+                <i class="fas fa-users mr-3"></i>
+                Creation
             </a>
         </nav>
     </div>
@@ -86,7 +86,6 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
                     </div>
                 </div>
             </div>
-      
         </div>
                 </div>
             </div>

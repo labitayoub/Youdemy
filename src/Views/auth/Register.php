@@ -52,7 +52,7 @@ if (isset($_POST['submit'])) {
         $authController->Register($nom, $prenom, $email, $password, $role);
         header('location:login.php');
     } else {
-        echo "<div class='bg-red-500 text-white p-4 rounded-md text-center font-bold mb-4 mx-auto max-w-md'>
+       echo "<div class='message bg-red-500 text-white p-4 rounded-md text-center font-bold ' style='z-index: 1; position: absolute; top:0; left: 38%; width: auto; '>
                 Veuillez remplir tous les champs
               </div>";
     }
@@ -76,28 +76,28 @@ if (isset($_POST['submit'])) {
                             <div>
                                 <input type="text" name="prenom" 
                                     class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" 
-                                    placeholder="Prénom" required>
+                                    placeholder="Prénom" >
                             </div>
                             <div>
                                 <input type="text" name="nom" 
                                     class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" 
-                                    placeholder="Nom" required>
+                                    placeholder="Nom" >
                             </div>
                         </div>
 
                         <input type="email" name="email" 
                             class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" 
-                            placeholder="Email" required>
+                            placeholder="Email" >
 
                         <input type="password" name="password" 
                             class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" 
-                            placeholder="Mot de passe" required>
+                            placeholder="Mot de passe" >
 
                         <div>
                             <label class="block text-blue-600 font-medium mb-2">Rôle</label>
                             <select name="role" 
                                 class="w-full p-2.5 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none" 
-                                required>
+                                >
                                 <option value="" selected>Choisir un rôle</option>
                                 <option value="Etudiant">Étudiant</option>
                                 <option value="Enseignant">Enseignant</option>
@@ -105,7 +105,7 @@ if (isset($_POST['submit'])) {
                         </div>
 
                         <div class="flex items-center">
-                            <input type="checkbox" id="terms" required
+                            <input type="checkbox" id="terms" 
                                 class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500">
                             <label for="terms" class="ml-2 text-gray-600">
                                 J'accepte les conditions d'utilisation et la politique de confidentialité
@@ -131,5 +131,16 @@ if (isset($_POST['submit'])) {
     </div>
 </div>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', ()=>{
+    var messages = document.getElementsByClassName('message');
+
+    setTimeout(function() {
+        for (var i = 0; i < messages.length; i++) {
+            messages[i].style.display = 'none';
+        }
+    }, 4000);
+})
+</script>
 </body>
 </html>
