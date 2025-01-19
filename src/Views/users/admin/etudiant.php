@@ -32,10 +32,8 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
         </div>
     </header>
 
-    <div class="fixed inset-y-0 left-0 w-64 bg-gray-900 text-white z-40">
-        <div class="flex items-center justify-center h-16 bg-gray-800">
-            <h1 class="text-xl font-bold">Tableau de bord</h1>
-        </div>
+    <div class="fixed inset-y-0 mt-12 left-0 w-64 bg-gray-900 text-white z-40">
+
         <nav class="mt-5 px-2">
             <a href="dashboard.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
                 <i class="fas fa-home mr-3"></i> Tableau de bord
@@ -81,8 +79,8 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($user['email']); ?></td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($user['role']); ?></td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($user['compte_statut']); ?></td>
-    
                                     </tr>
+                                    
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
