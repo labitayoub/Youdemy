@@ -9,7 +9,7 @@ $conn = $db->connect();
 
 $users = $conn->query("SELECT * FROM Users WHERE role IN ('Enseignant', 'etudiant')")->fetchAll(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['usersupp'])) {
+if (isset($_POST['usersupp'])) {
     $userId = $_POST['usersupp'];
 
     $userController = new UserController();
