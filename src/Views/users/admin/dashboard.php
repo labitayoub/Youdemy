@@ -67,6 +67,9 @@ $cours = $conn->query("
             <a href="tags.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
                 <i class="fas fa-tags mr-3"></i> Tags
             </a>
+            <a href="supprimer.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
+                <i class="fas fa-tags mr-3"></i> supprimer
+            </a>
         </nav>
     </div>
 
@@ -129,8 +132,7 @@ $cours = $conn->query("
                             <p class="text-sm text-gray-500">Tags: <?php echo htmlspecialchars($cour['tags']); ?></p>
                         </div>
                         <div class="px-4 py-4 bg-gray-50">
-                            <a href="supprimer.php?id=<?php echo $cour['id']; ?>" onclick="return confirm('Supprimer ce cours ?');" class="bg-red-500 text-white py-2 px-4 rounded text-sm">Supprimer</a>
-                        </div>
+                        <a href="supprimer.php?id=<?php echo $cour['id']; ?>" onclick="return confirm('Supprimer ce cours ?');" class="bg-red-500 text-white py-2 px-4 rounded text-sm">Supprimer</a></div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>

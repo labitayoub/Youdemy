@@ -47,8 +47,6 @@ class AuthController{
         $NewUserModel->addMember($nom, $prenom, $email, $password, $role);
     }
 
-
-
 }
 
 
