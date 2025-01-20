@@ -4,7 +4,6 @@ use App\Config\Database;
 $db = new Database(); 
 $conn = $db->connect();   
 
-// Récupération des cours comme dans le code précédent
 $cours = $conn->query("
     SELECT cours.id, cours.titre, cours.contenu, cours.description, 
            categorie.nom AS categorie, 
@@ -59,7 +58,6 @@ $cours = $conn->query("
             </div>     
         </section>
 
-        <!-- Nouvelle section pour les cours -->
         <section id="courses" class="py-12 bg-white">
             <div class="max-w-6xl mx-auto px-4">
                 <h2 class="text-2xl font-bold mb-8 text-center">Nos Cours Disponibles</h2>

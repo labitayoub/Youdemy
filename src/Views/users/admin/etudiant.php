@@ -1,10 +1,33 @@
 <?php
 require_once("../../../../vendor/autoload.php");
+
 use App\Config\Database;
+
 $db = new Database();
 $conn = $db->connect();
 
 $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(PDO::FETCH_ASSOC);
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
+    $user_id = $_POST['user_id'];
+    $nouveau_statut = $_POST['status'];
+
+    $update_sql = "UPDATE users SET compte_statut = :compte_statut WHERE id = :user_id";
+    $params = [
+        'compte_statut' => $nouveau_statut,
+        'user_id' => $user_id
+    ];
+
+    try {
+        $stmt = $conn->prepare($update_sql);
+        $stmt->execute($params);
+        header("Location:../admin/etudiant.php");
+        exit();
+    } catch (Exception $e) {
+        echo "Erreur lors de la mise à jour du statut: " . $e->getMessage();
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,6 +73,9 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
             <a href="tags.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
                 <i class="fas fa-tags mr-3"></i> Tags
             </a>
+            <a href="supprimer.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
+                <i class="fas fa-tags mr-3"></i> supprimer
+            </a>
         </nav>
     </div>
 
@@ -57,7 +83,7 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
         <main class="flex-1 pt-24 pb-6 px-4 sm:px-6 lg:px-8">
             <div class="bg-white rounded-lg shadow p-6">
                 <h2 class="text-2xl font-semibold text-gray-800 mb-6">Liste des Etudiants</h2>
-                
+
                 <div class="overflow-x-auto">
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead class="bg-gray-50">
@@ -74,13 +100,25 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
                             <?php if (count($users) > 0): ?>
                                 <?php foreach ($users as $user): ?>
                                     <tr class="hover:bg-gray-50">
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($user['nom']); ?></td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($user['prenom']); ?></td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($user['email']); ?></td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($user['role']); ?></td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo ($user['compte_statut']); ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($user['nom']); ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($user['prenom']); ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($user['email']); ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($user['role']); ?></td>
+                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($user['compte_statut']); ?></td>
+                                        <td class="py-3 px-4">
+                                            <form method="POST" action="" class="inline-block">
+                                                <input type="hidden" name="user_id" value="<?php echo $user['id']; ?>">
+                                                <select name="status" class="bg-indigo-600 text-white py-2 px-4 rounded-md">
+                                                    <option value="Actif" <?php echo $user['compte_statut'] === 'Actif' ? 'selected' : ''; ?>>Actif</option>
+                                                    <option value="Suspendu" <?php echo $user['compte_statut'] === 'Suspendu' ? 'selected' : ''; ?>>Suspendu</option>
+                                                    <option value="Non Actif" <?php echo $user['compte_statut'] === 'Non Actif' ? 'selected' : ''; ?>>Non Actif</option>
+                                                </select>
+                                                <button type="submit" class="ml-2 bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700" onclick="return confirm('Êtes-vous sûr de vouloir mettre à jour le statut de cet utilisateur ?');">
+                                                    Update
+                                                </button>
+                                            </form>
+                                        </td>
                                     </tr>
-                                    
                                 <?php endforeach; ?>
                             <?php else: ?>
                                 <tr>
@@ -96,4 +134,5 @@ $users = $conn->query("SELECT * FROM Users where role = 'Etudiant'")->fetchAll(P
 
 
 </body>
+
 </html>
