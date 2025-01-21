@@ -1,3 +1,10 @@
+<?php 
+session_start();
+
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,15 +34,16 @@
             <a href="../../Views/index.php" class="hover:text-blue-600 mt-2">Accueil</a>
             <a href="#about" class="hover:text-blue-600 mt-2">A propos de</a>
             <a href="#courses" class="hover:text-blue-600 mt-2">Cours</a>
-            <a href="../auth/Login.php" class="border border-blue-600 text-blue-600 px-4 py-2 rounded">Login</a>
-            <a href="../auth/Register.php" class="bg-blue-600 text-white px-4 py-2 rounded">Sign Up</a>
-        </nav>
+            <a href="../Views/auth/Login.php" class="rounded-full overflow-hidden w-10 h-10">
+                <img src="../../../Image/icon.webp" alt="Login" class="w-full h-full object-cover">
+            </a></nav>
         <button class="md:hidden">☰</button>
     </div>
 </header>
 
 <?php
 require_once "../../../vendor/autoload.php";
+
 use App\Controllers\AuthController;
 
 if(isset($_POST["submit"])) {

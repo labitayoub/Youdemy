@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['users'])) {
+    header('Location: ../../../../auth/Login.php');
+    exit();
+}
 require_once("../../../../vendor/autoload.php");
 
 use App\Config\Database;
@@ -42,7 +48,8 @@ if (isset($_POST['usersupp'])) {
                 <a href="#about" class="hover:text-blue-600">À propos</a>
                 <a href="#courses" class="hover:text-blue-600">Cours</a>
                 <a href="#admin" class="hover:text-blue-600"><i class="fas fa-user-circle text-xl"></i> Admin</a>
-            </nav>
+                <a href="../Views/auth/Logout.php" class="bg-red-600 text-white px-4 py-2 rounded">Logout</a>
+                </nav>
             <button class="md:hidden">☰</button>
         </div>
     </header>

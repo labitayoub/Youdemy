@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['users'])) {
+    header('Location: ../../../../auth/Login.php');
+    exit();
+}
+
 require_once("../../../../vendor/autoload.php");
 
 use App\Config\Database;
@@ -44,13 +51,13 @@ $cours = $conn->query("
                 <a href="#about" class="hover:text-blue-600">À propos</a>
                 <a href="#courses" class="hover:text-blue-600">Cours</a>
                 <a href="#admin" class="hover:text-blue-600"><i class="fas fa-user-circle text-xl"></i> Admin</a>
+                <a href="../Views/auth/Logout.php" class="bg-red-600 text-white px-4 py-2 rounded">Logout</a>
             </nav>
             <button class="md:hidden">☰</button>
         </div>
     </header>
 
     <div class="fixed inset-y-0 mt-12 left-0 w-64 bg-gray-900 text-white z-40">
-
         <nav class="mt-5 px-2">
             <a href="dashboard.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
                 <i class="fas fa-home mr-3"></i> Tableau de bord
@@ -132,7 +139,7 @@ $cours = $conn->query("
                             <p class="text-sm text-gray-500">Tags: <?php echo htmlspecialchars($cour['tags']); ?></p>
                         </div>
                         <div class="px-4 py-4 bg-gray-50">
-                        <a href="supprimer.php?id=<?php echo $cour['id']; ?>" onclick="return confirm('Supprimer ce cours ?');" class="bg-red-500 text-white py-2 px-4 rounded text-sm">Supprimer</a></div>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
