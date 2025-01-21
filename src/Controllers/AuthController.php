@@ -58,9 +58,9 @@ class AuthController{
     }
 
     public function logout() {
-        session_unset(); // Supprime toutes les variables de session
-        session_destroy(); // Détruit la session
-        header('Location: ../../Views/auth/Login.php'); // Redirige vers la page de connexion
+        session_unset();
+        session_destroy();
+        header('Location: ../../Views/auth/Login.php');
         exit();
     }
 }

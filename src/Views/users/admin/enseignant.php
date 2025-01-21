@@ -9,6 +9,7 @@ require_once("../../../../vendor/autoload.php");
 
 use App\Config\Database;
 
+
 $db = new Database();
 $conn = $db->connect();
 
@@ -44,7 +45,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Navbar */
         .navbar {
             position: fixed;
             top: 0;
@@ -56,7 +56,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Sidebar */
         .sidebar {
             position: fixed;
             top: 64px;
@@ -68,7 +67,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
             color: white;
         }
 
-        /* Contenu principal */
         .main-content {
             margin-top: 64px;
             margin-left: 256px;
@@ -83,11 +81,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
             <!-- Logo -->
             <a href="../../Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
 
-            <!-- Liens de navigation -->
             <nav class="hidden md:flex items-center gap-6">
                 <a href="../../index.php" class="hover:text-blue-600">Accueil</a>
                 <a href="#about" class="hover:text-blue-600">À propos</a>
-                <a href="#courses" class="hover:text-blue-600">Cours</a>
                 <a href="#admin" class="hover:text-blue-600">
                     <i class="fas fa-user-circle"></i>
                     <span class="ml-2">Admin</span>
@@ -97,14 +93,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
                 </a>
             </nav>
 
-            <!-- Menu mobile (optionnel) -->
             <label for="mobile-menu" class="md:hidden cursor-pointer">
                 <i class="fas fa-bars text-2xl"></i>
             </label>
         </div>
     </header>
 
-    <!-- Sidebar -->
     <aside class="sidebar">
         <nav class="mt-5 px-2">
             <a href="dashboard.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
@@ -128,7 +122,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
         </nav>
     </aside>
 
-    <!-- Contenu principal -->
     <div class="main-content">
         <h2 class="text-2xl font-semibold text-gray-800 mb-6">Liste des Enseignants</h2>
 

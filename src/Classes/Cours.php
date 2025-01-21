@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Classes;
+
+use App\Models\CoursModel;
+
 class Cours {
 
     private $id;
@@ -54,9 +58,20 @@ public function setUser_id($user_id){
     $this->user_id =$user_id;
 }
 
-public function AjouteCours(){}
-public function mettreCours(){}
-public function supprimerCours(){}
+public function AjouteCours() {
+    $coursModel = new CoursModel();
+    return $coursModel->ajouterCours($this);
+}
+
+public function mettreAJourCours() {
+    $coursModel = new CoursModel();
+    return $coursModel->mettreAJourCours($this);
+}
+
+public function supprimerCours() {
+    $coursModel = new CoursModel();
+    return $coursModel->supprimerCours($this->id);
+}
 }
 
 

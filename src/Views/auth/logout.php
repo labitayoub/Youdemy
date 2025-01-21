@@ -1,5 +1,5 @@
 <?php
-session_start(); // Démarrez la session
+session_start();
 
 require_once("../../../vendor/autoload.php");
 
