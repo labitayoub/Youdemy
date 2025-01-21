@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_tag'])) {
                     <i class="fas fa-user-circle"></i>
                     <span class="ml-2">Admin</span>
                 </a>
-                <a href="../Views/auth/Logout.php" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+                <a href="../../auth/logout.php" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
                     Déconnexion
                 </a>
             </nav>
