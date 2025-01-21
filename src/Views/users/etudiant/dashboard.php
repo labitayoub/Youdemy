@@ -83,7 +83,6 @@ $cours = $stmt->fetchAll(PDO::FETCH_ASSOC);
 <body class="bg-gray-100">
     <header class="navbar">
         <div class="max-w-full mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Logo -->
             <a href="../../Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
 
             <nav class="hidden md:flex items-center gap-6">
