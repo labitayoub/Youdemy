@@ -5,15 +5,16 @@ if (!isset($_SESSION['users'])) {
     header('Location: ../../../../auth/Login.php');
     exit();
 }
+
 require_once("../../../../vendor/autoload.php");
 use App\Config\Database;
+
 $db = new Database();
 $conn = $db->connect();
 
 $totalEtudiants = $conn->query("SELECT COUNT(*) FROM users WHERE role = 'Etudiant'")->fetchColumn();
 $totalEnseignants = $conn->query("SELECT COUNT(*) FROM users WHERE role = 'Enseignant'")->fetchColumn();
 $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
-
 ?>
 
 <!DOCTYPE html>
@@ -24,50 +25,72 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
     <title>YouDemy Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 64px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .sidebar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            bottom: 0;
+            width: 256px;
+            z-index: 999;
+            background-color: #1f2937;
+            color: white;
+        }
+        .main-content {
+            margin-top: 64px;
+            margin-left: 256px;
+            padding: 1rem;
+        }
+    </style>
 </head>
 <body class="bg-gray-100">
-
-<header class="fixed w-full bg-white shadow">
-    <div class="max-w-5xl mx-auto p-4 flex justify-between items-center">
-        <a href="../../Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
-        <nav class="hidden md:flex gap-4">
-            <a href="../../index.php" class="hover:text-blue-600">Accueil</a>
-            <a href="#about" class="hover:text-blue-600">A propos de</a>
-            <a href="#courses" class="hover:text-blue-600 mr-5">Cours</a>
-            <a href="#courses" class="hover:text-blue-600 ml-5"><i class="fas fa-user-circle text-xl mr-1"></i>
-            Enseignant</a>
-            <a href="../Views/auth/Logout.php" class="bg-red-600 text-white px-4 py-2 rounded">Logout</a>
+    <header class="navbar">
+        <div class="max-w-full mx-auto px-4 py-3 flex justify-between items-center">
+            <a href="../../Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
+            <nav class="hidden md:flex items-center gap-6">
+                <a href="../../index.php" class="hover:text-blue-600">Accueil</a>
+                <a href="../../index.php" class="hover:text-blue-600">À propos</a>
+                <a href="../../cours.php" class="hover:text-blue-600">Cours</a>
+                <a href="#admin" class="hover:text-blue-600">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="ml-2">Admin</span>
+                </a>
+                <a href="../../auth/logout.php" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+                    Déconnexion
+                </a>
             </nav>
-        <button class="md:hidden">☰</button>
-    </div>
-</header>
-
-    <div class="fixed inset-y-0 left-0 w-64 bg-gray-900 text-white transform transition-transform duration-200 ease-in-out z-40">
-        <div class="flex items-center justify-center h-16 bg-gray-800">
-            <h1 class="text-xl font-bold"></h1>
+            <label for="mobile-menu" class="md:hidden cursor-pointer">
+                <i class="fas fa-bars text-2xl"></i>
+            </label>
         </div>
+    </header>
+
+    <aside class="sidebar">
         <nav class="mt-5 px-2">
-            <a href="dashboard.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
-                <i class="fas fa-home mr-3"></i>
-                Statistiques
+            <a href="dashboard.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
+                <i class="fas fa-home mr-3"></i> Tableau de bord
             </a>
-            <a href="etudiant.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
-                <i class="fas fa-users mr-3"></i>
-                Etudiants
+            <a href="creation.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
+                <i class="fas fa-chalkboard-teacher mr-3"></i> Creation
             </a>
-            <a href="gestion.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
-                <i class="fas fa-users mr-3"></i>
-                Gestion des cours
+            <a href="Gestion.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
+                <i class="fas fa-user-graduate mr-3"></i> Gestion
             </a>
-            <a href="creation.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 hover:text-white rounded-md transition-colors duration-200">
-                <i class="fas fa-users mr-3"></i>
-                Creation
-            </a>
+            
         </nav>
-    </div>
+    </aside>
 
-    <div class="ml-64 p-8">
-
+    <div class="main-content">
         <h2 class="text-2xl font-bold mb-6 mt-11">Statistiques</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow p-6">
@@ -93,11 +116,6 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
                 </div>
             </div>
         </div>
-                </div>
-            </div>
-        </main>
     </div>
-
-
 </body>
 </html>

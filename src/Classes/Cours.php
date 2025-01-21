@@ -1,5 +1,9 @@
 <?php
 
+namespace App\Classes;
+
+use App\Models\CoursModel;
+
 class Cours {
 
     private $id;

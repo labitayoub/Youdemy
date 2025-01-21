@@ -12,7 +12,7 @@
         <a href="../../src/Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
         <nav class="hidden md:flex gap-4 items-center">
             <a href="../Views/" class="hover:text-blue-600 mt-2">Accueil</a>
-            <a href="#about" class="hover:text-blue-600 mt-2">About</a>
+            <a href="#about" class="hover:text-blue-600 mt-2">À propos</a>
             <a href="cours.php" class="hover:text-blue-600 mt-2">Cours</a>
             <a href="../Views/auth/Login.php" class="rounded-full overflow-hidden w-10 h-10">
                 <img src="../../Image/icon.webp" alt="Login" class="w-full h-full object-cover">

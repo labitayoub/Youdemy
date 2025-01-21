@@ -79,17 +79,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_tag'])) {
     </style>
 </head>
 <body class="bg-gray-100">
-    <!-- Navbar -->
     <header class="navbar">
         <div class="max-w-full mx-auto px-4 py-3 flex justify-between items-center">
-            <!-- Logo -->
             <a href="../../Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
 
             <!-- Liens de navigation -->
             <nav class="hidden md:flex items-center gap-6">
                 <a href="../../index.php" class="hover:text-blue-600">Accueil</a>
-                <a href="#about" class="hover:text-blue-600">À propos</a>
-                <a href="#courses" class="hover:text-blue-600">Cours</a>
+                <a href="../../index.php" class="hover:text-blue-600">À propos</a>
                 <a href="#admin" class="hover:text-blue-600">
                     <i class="fas fa-user-circle"></i>
                     <span class="ml-2">Admin</span>
@@ -99,14 +96,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_tag'])) {
                 </a>
             </nav>
 
-            <!-- Menu mobile (optionnel) -->
             <label for="mobile-menu" class="md:hidden cursor-pointer">
                 <i class="fas fa-bars text-2xl"></i>
             </label>
         </div>
     </header>
 
-    <!-- Sidebar -->
     <aside class="sidebar">
         <nav class="mt-5 px-2">
             <a href="dashboard.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
@@ -130,7 +125,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_tag'])) {
         </nav>
     </aside>
 
-    <!-- Contenu principal -->
     <div class="main-content">
         <h1 class="text-2xl font-bold mb-4">Gestion des Tags</h1>
 
@@ -158,7 +152,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_tag'])) {
                         <td class="p-4"><?php echo htmlspecialchars($tag['id']); ?></td>
                         <td class="p-4"><?php echo htmlspecialchars($tag['nom']); ?></td>
                         <td class="p-4">
-                            <!-- Formulaire de suppression de tag -->
                             <form method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce tag ?');">
                                 <input type="hidden" name="tag_id" value="<?php echo $tag['id']; ?>">
                                 <button type="submit" name="delete_tag" class="bg-red-600 text-white px-4 py-2 rounded">
