@@ -1,8 +1,22 @@
-<?php 
-require_once("../../vendor/autoload.php");  
-use App\Config\Database;  
-$db = new Database(); 
-$conn = $db->connect();   
+<?php
+session_start();
+
+require_once("../../vendor/autoload.php");
+use App\Config\Database;
+
+$db = new Database();
+$conn = $db->connect();
+
+// Vérifier si l'utilisateur est connecté et a le rôle d'étudiant
+$isLoggedIn = isset($_SESSION['users']) && $_SESSION['users']['role'] === 'Etudiant';
+$userId = $isLoggedIn ? $_SESSION['users']['id'] : null;
+
+// Traitement de l'inscription à un cours
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id']) && $isLoggedIn) {
+    $courseId = $_POST['course_id'];
+    $stmt = $conn->prepare("INSERT INTO inscriptions (user_id, cours_id) VALUES (:user_id, :cours_id)");
+    $stmt->execute(['user_id' => $userId, 'cours_id' => $courseId]);
+}
 
 $cours = $conn->query("
     SELECT cours.id, cours.titre, cours.contenu, cours.description, 
@@ -16,46 +30,47 @@ $cours = $conn->query("
     JOIN users ON cours.user_id = users.id
     GROUP BY cours.id
 ")->fetchAll(PDO::FETCH_ASSOC);
-?>  
+?>
 
-<!DOCTYPE html> 
-<html lang="en"> 
-<head>     
-    <meta charset="UTF-8">     
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">     
-    <title>Youdemy</title>     
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Youdemy</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head> 
-<body> 
-    <header class="style='z-index: 1 fixed w-full bg-white shadow">     
-        <div class="max-w-5xl mx-auto p-4 flex justify-between items-center">     
-            <a href="../../src/Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>     
-            <nav class="hidden md:flex gap-4">             
-                <a href="../Views/" class="hover:text-blue-600 mt-2">Accueil</a>             
-                <a href="#about" class="hover:text-blue-600 mt-2">About</a>             
-                <a href="#courses" class="hover:text-blue-600 mt-2">Cours</a>             
+</head>
+<body>
+    <header class="style='z-index: 1 fixed w-full bg-white shadow">
+        <div class="max-w-5xl mx-auto p-4 flex justify-between items-center">
+            <a href="../../src/Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
+            <nav class="hidden md:flex gap-4">
+                <a href="../Views/" class="hover:text-blue-600 mt-2">Accueil</a>
+                <a href="#about" class="hover:text-blue-600 mt-2">About</a>
+                <a href="#courses" class="hover:text-blue-600 mt-2">Cours</a>
                 <a href="../Views/auth/Login.php" class="rounded-full overflow-hidden w-10 h-10">
-                <img src="../../Image/icon.webp" alt="Login" class="w-full h-full object-cover">
-            </a></nav>         
-            <button class="md:hidden">☰</button>     
-        </div> 
-    </header>  
+                    <img src="../../Image/icon.webp" alt="Login" class="w-full h-full object-cover">
+                </a>
+            </nav>
+            <button class="md:hidden">☰</button>
+        </div>
+    </header>
 
-    <main>     
-        <section class="bg-blue-600 text-white pt-24 pb-12 text-center">         
-            <div class="max-w-3xl mx-auto px-4">             
-                <h2 class="text-3xl font-bold mb-4">Bienvenue à Youdemy</h2>             
-                <p>Libérez votre potentiel grâce à notre large éventail de cours dispensés par des experts.</p>         
-            </div>     
-        </section>      
+    <main>
+        <section class="bg-blue-600 text-white pt-24 pb-12 text-center">
+            <div class="max-w-3xl mx-auto px-4">
+                <h2 class="text-3xl font-bold mb-4">Bienvenue à Youdemy</h2>
+                <p>Libérez votre potentiel grâce à notre large éventail de cours dispensés par des experts.</p>
+            </div>
+        </section>
 
-        <section id="about" class="py-12 bg-gray-50">         
-            <div class="max-w-3xl mx-auto px-4 text-center">             
-                <h2 class="text-2xl font-bold mb-4">YOU-DEMY</h2>             
-                <p class="mb-8">Youdemy est une plateforme à but non lucratif qui offre un accès gratuit à une éducation de qualité pour tous, partout dans le monde.</p>             
-                <img src="../../Image/image of home 2.jpg" alt="Learn online" class="w-full rounded shadow">         
-            </div>     
+        <section id="about" class="py-12 bg-gray-50">
+            <div class="max-w-3xl mx-auto px-4 text-center">
+                <h2 class="text-2xl font-bold mb-4">YOU-DEMY</h2>
+                <p class="mb-8">Youdemy est une plateforme à but non lucratif qui offre un accès gratuit à une éducation de qualité pour tous, partout dans le monde.</p>
+                <img src="../../Image/image of home 2.jpg" alt="Learn online" class="w-full rounded shadow">
+            </div>
         </section>
 
         <section id="courses" class="py-12 bg-white">
@@ -82,7 +97,14 @@ $cours = $conn->query("
                                     <p class="text-sm text-gray-500">Tags: <?php echo htmlspecialchars($cour['tags']); ?></p>
                                 </div>
                                 <div class="px-4 py-4 bg-gray-50">
-                                    <button onclick="redirectToLogin()" class="bg-blue-600 text-white py-2 px-4 rounded text-sm inline-block">Inscrit</button>
+                                    <?php if ($isLoggedIn): ?>
+                                        <form method="POST" action="">
+                                            <input type="hidden" name="course_id" value="<?php echo $cour['id']; ?>">
+                                            <button type="submit" class="bg-blue-600 text-white py-2 px-4 rounded text-sm inline-block">S'inscrire</button>
+                                        </form>
+                                    <?php else: ?>
+                                        <button onclick="redirectToLogin()" class="bg-blue-600 text-white py-2 px-4 rounded text-sm inline-block">S'inscrire</button>
+                                    <?php endif; ?>
                                 </div>
                             </div>
                         <?php endforeach; ?>
@@ -92,11 +114,11 @@ $cours = $conn->query("
                 </div>
             </div>
         </section>
-    </main>  
+    </main>
 
-    <footer class="bg-white py-4 text-center text-gray-600">     
-        <p>Youdemy All Rights Reserved By Ayoub</p> 
-    </footer> 
+    <footer class="bg-white py-4 text-center text-gray-600">
+        <p>Youdemy All Rights Reserved By Ayoub</p>
+    </footer>
 
     <script>
         function redirectToLogin() {
@@ -114,7 +136,7 @@ $cours = $conn->query("
         }
 
         // Simuler l'affichage des vidéos après connexion
-        const isLoggedIn = false; // Remplacez par la logique de vérification de connexion réelle
+        const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
         if (isLoggedIn) {
             document.querySelectorAll('.bg-blue-600').forEach(button => {
                 button.onclick = function() {
@@ -124,5 +146,5 @@ $cours = $conn->query("
             });
         }
     </script>
-</body> 
+</body>
 </html>
