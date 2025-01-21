@@ -75,10 +75,10 @@ VALUES
 
 INSERT INTO Cours (titre, description, contenu, categorie_id, user_id)
 VALUES 
-('Apprendre PHP pour Débutants', 'Un cours complet pour apprendre PHP.', 'https://www.youtube.com/watch?v=php-course', 1, 2),
-('Introduction à JavaScript', 'Apprenez les bases de JavaScript.', 'https://www.youtube.com/watch?v=javascript-course', 1, 2),
-('Analyse des Données avec Python', 'Explorez les bases de la science des données.', 'https://www.youtube.com/watch?v=python-data-analysis', 2, 2),
-('Design UX/UI', 'Un guide pour concevoir des interfaces utilisateur.', 'https://www.youtube.com/watch?v=design-ux-ui', 3, 2);
+('Apprendre PHP pour Débutants', 'Un cours complet pour apprendre PHP.', 'https://www.youtube.com/embed/php-course', 1, 2),
+('Introduction à JavaScript', 'Apprenez les bases de JavaScript.', 'https://www.youtube.com/embed/javascript-course', 1, 2),
+('Analyse des Données avec Python', 'Explorez les bases de la science des données.', 'https://www.youtube.com/embed/python-data-analysis', 2, 2),
+('Design UX/UI', 'Un guide pour concevoir des interfaces utilisateur.', 'https://www.youtube.com/embed/design-ux-ui', 3, 2);
 
 INSERT INTO CoursTag (cours_id, tag_id)
 VALUES 

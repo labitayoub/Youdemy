@@ -8,23 +8,35 @@ if (!isset($_SESSION['users'])) {
 require_once("../../../../vendor/autoload.php");
 
 use App\Config\Database;
-use App\Controllers\UserController;
+use App\Controllers\TagController;
 
 $db = new Database();
 $conn = $db->connect();
 
-$users = $conn->query("SELECT * FROM Users WHERE role IN ('Enseignant', 'etudiant')")->fetchAll(PDO::FETCH_ASSOC);
+$tagController = new TagController();
 
-if (isset($_POST['usersupp'])) {
-    $userId = $_POST['usersupp'];
+$tags = $conn->query("SELECT * FROM Tag")->fetchAll(PDO::FETCH_ASSOC);
 
-    $userController = new UserController();
-    if ($userController->deleteUser($userId)) {
-        header("Location: ../admin/supprimer.php");
-        exit();
-    } else {
-        echo "Erreur lors de la suppression d'un utilisateur.";
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_tags'])) {
+    $tagsInput = $_POST['tags'];
+    $tagsArray = explode(',', $tagsInput);
+
+    foreach ($tagsArray as $tagName) {
+        $tagName = trim($tagName);
+        if (!empty($tagName)) {
+            $tagController->createTag($tagName);
+        }
     }
+
+    header("Location: tags.php");
+    exit();
+}
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_tag'])) {
+    $tagId = $_POST['tag_id'];
+    $tagController->deleteTag($tagId);
+    header("Location: tags.php");
+    exit();
 }
 ?>
 
@@ -33,11 +45,10 @@ if (isset($_POST['usersupp'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouDemy Admin Dashboard</title>
+    <title>YouDemy Admin Dashboard - Gestion des Tags</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
-        /* Navbar */
         .navbar {
             position: fixed;
             top: 0;
@@ -49,7 +60,12 @@ if (isset($_POST['usersupp'])) {
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
 
-        /* Sidebar */
+        .main-content {
+            margin-top: 64px;
+            margin-left: 256px;
+            padding: 1rem;
+        }
+
         .sidebar {
             position: fixed;
             top: 64px;
@@ -59,13 +75,6 @@ if (isset($_POST['usersupp'])) {
             z-index: 999;
             background-color: #1f2937;
             color: white;
-        }
-
-        /* Contenu principal */
-        .main-content {
-            margin-top: 64px;
-            margin-left: 256px;
-            padding: 1rem;
         }
     </style>
 </head>
@@ -123,45 +132,44 @@ if (isset($_POST['usersupp'])) {
 
     <!-- Contenu principal -->
     <div class="main-content">
-        <h2 class="text-2xl font-semibold text-gray-800 mb-6">Supprimer des Utilisateurs</h2>
+        <h1 class="text-2xl font-bold mb-4">Gestion des Tags</h1>
 
-        <div class="overflow-x-auto">
-            <table class="min-w-full divide-y divide-gray-200">
-                <thead class="bg-gray-50">
-                    <tr>
-                        <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Nom</th>
-                        <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Prenom</th>
-                        <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Email</th>
-                        <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Role</th>
-                        <th class="px-6 py-3 text-left font-medium text-gray-500 tracking-wider">Action</th>
+        <form method="POST" class="mb-8">
+            <div class="flex flex-col gap-4">
+                <label for="tags" class="text-gray-700">Ajouter des tags (séparés par des virgules) :</label>
+                <textarea name="tags" id="tags" placeholder="Ex: PHP, JavaScript, HTML" class="p-2 border rounded" required></textarea>
+                <button type="submit" name="add_tags" class="bg-blue-600 text-white px-4 py-2 rounded w-fit">
+                    Ajouter les tags
+                </button>
+            </div>
+        </form>
+
+        <table class="w-full bg-white shadow rounded">
+            <thead>
+                <tr class="border-b">
+                    <th class="p-4 text-left">ID</th>
+                    <th class="p-4 text-left">Nom</th>
+                    <th class="p-4 text-left">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($tags as $tag): ?>
+                    <tr class="border-b">
+                        <td class="p-4"><?php echo htmlspecialchars($tag['id']); ?></td>
+                        <td class="p-4"><?php echo htmlspecialchars($tag['nom']); ?></td>
+                        <td class="p-4">
+                            <!-- Formulaire de suppression de tag -->
+                            <form method="POST" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer ce tag ?');">
+                                <input type="hidden" name="tag_id" value="<?php echo $tag['id']; ?>">
+                                <button type="submit" name="delete_tag" class="bg-red-600 text-white px-4 py-2 rounded">
+                                    Supprimer
+                                </button>
+                            </form>
+                        </td>
                     </tr>
-                </thead>
-                <tbody class="bg-white divide-y divide-gray-200">
-                    <?php if (count($users) > 0): ?>
-                        <?php foreach ($users as $user): ?>
-                            <tr class="hover:bg-gray-50">
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($user['nom']); ?></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($user['prenom']); ?></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($user['email']); ?></td>
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900"><?php echo htmlspecialchars($user['role']); ?></td>
-                                <td class="py-3 px-4">
-                                    <form method="POST" action="" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');">
-                                        <input type="hidden" name="usersupp" value="<?php echo $user['id']; ?>">
-                                        <button type="submit" class="bg-red-600 text-white py-2 px-4 rounded-md hover:bg-red-700">
-                                            Supprimer
-                                        </button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php else: ?>
-                        <tr>
-                            <td colspan="5" class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 text-center">Aucun utilisateur trouvé</td>
-                        </tr>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-        </div>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
     </div>
 </body>
 </html>

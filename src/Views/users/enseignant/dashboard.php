@@ -1,4 +1,10 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['users'])) {
+    header('Location: ../../../../auth/Login.php');
+    exit();
+}
 require_once("../../../../vendor/autoload.php");
 use App\Config\Database;
 $db = new Database();
@@ -30,8 +36,8 @@ $totalCours = $conn->query("SELECT COUNT(*) FROM cours")->fetchColumn();
             <a href="#courses" class="hover:text-blue-600 mr-5">Cours</a>
             <a href="#courses" class="hover:text-blue-600 ml-5"><i class="fas fa-user-circle text-xl mr-1"></i>
             Enseignant</a>
-
-        </nav>
+            <a href="../Views/auth/Logout.php" class="bg-red-600 text-white px-4 py-2 rounded">Logout</a>
+            </nav>
         <button class="md:hidden">☰</button>
     </div>
 </header>

@@ -1,6 +1,6 @@
 <?php
-
 namespace App\Controllers;
+session_start(); 
 
 use App\Classes\Users;
 use App\Config\Database;
@@ -10,19 +10,19 @@ use PDO;
 class AuthController{
     
     public function login($email, $password){
-
+        
         $memberModel = new UserModel();
         $member = $memberModel->findMember($email, $password);
+
         if($member == null)
         {
             echo "<div class='message bg-red-500 text-white p-4 rounded-md text-center font-bold' style='z-index: 1; position: absolute; top:0; left: 38%; width: auto; '>Membre non trouvé veuillez vérifier</div>";
-        }
-        else if($member->getcompte_statut() !== 'Actif'){
+        }else if($member->getcompte_statut() !== 'Actif'){
 
            echo "<div class='message bg-red-500 text-white p-4 rounded-md text-center font-bold' style='z-index: 1; position: absolute; top:0; left: 27%; width: auto; '> Votre compte n'est pas encore activé Veuillez contacter l'administrateur </div>";
-        }
-        else{
+        }else{
 
+            $this->createSession($member);
 
             if($member->getRole() == "Administrateur")
             {
@@ -39,6 +39,7 @@ class AuthController{
               header("Location: ../users/enseignant/dashboard.php");
               exit();
             }
+
         }
     }
     
@@ -47,7 +48,20 @@ class AuthController{
         $NewUserModel->addMember($nom, $prenom, $email, $password, $role);
     }
 
+    public function createSession($user) {
+        $_SESSION['users'] = [
+            'id' => $user->getId(),
+            'nom' => $user->getNom(),
+            'prenom' => $user->getPrenom(),
+            'role' => $user->getRole()
+        ];
+    }
+
+    public function logout() {
+        session_unset(); // Supprime toutes les variables de session
+        session_destroy(); // Détruit la session
+        header('Location: ../../Views/auth/Login.php'); // Redirige vers la page de connexion
+        exit();
+    }
 }
-
-
 ?>

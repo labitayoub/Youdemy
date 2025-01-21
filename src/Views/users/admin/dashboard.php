@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if (!isset($_SESSION['users'])) {
+    header('Location: ../../../../auth/Login.php');
+    exit();
+}
+
 require_once("../../../../vendor/autoload.php");
 
 use App\Config\Database;
@@ -26,31 +33,75 @@ $cours = $conn->query("
 
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>YouDemy Admin Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-</head>
+    <style>
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            height: 64px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
 
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            top: 64px;
+            left: 0;
+            bottom: 0;
+            width: 256px;
+            z-index: 999;
+            background-color: #1f2937;
+            color: white;
+        }
+
+        /* Contenu principal */
+        .main-content {
+            margin-top: 64px;
+            margin-left: 256px;
+            padding: 1rem;
+        }
+    </style>
+</head>
 <body class="bg-gray-100">
-    <header class="fixed w-full bg-white shadow z-50">
-        <div class="max-w-5xl mx-auto p-4 flex justify-between items-center">
+    <!-- Navbar -->
+    <header class="navbar">
+        <div class="max-w-full mx-auto px-4 py-3 flex justify-between items-center">
+            <!-- Logo -->
             <a href="../../Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
-            <nav class="hidden md:flex gap-4">
+
+            <!-- Liens de navigation -->
+            <nav class="hidden md:flex items-center gap-6">
                 <a href="../../index.php" class="hover:text-blue-600">Accueil</a>
                 <a href="#about" class="hover:text-blue-600">À propos</a>
                 <a href="#courses" class="hover:text-blue-600">Cours</a>
-                <a href="#admin" class="hover:text-blue-600"><i class="fas fa-user-circle text-xl"></i> Admin</a>
+                <a href="#admin" class="hover:text-blue-600">
+                    <i class="fas fa-user-circle"></i>
+                    <span class="ml-2">Admin</span>
+                </a>
+                <a href="../../auth/logout.php" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded">
+                    Déconnexion
+                </a>
             </nav>
-            <button class="md:hidden">☰</button>
+
+            <!-- Menu mobile (optionnel) -->
+            <label for="mobile-menu" class="md:hidden cursor-pointer">
+                <i class="fas fa-bars text-2xl"></i>
+            </label>
         </div>
     </header>
 
-    <div class="fixed inset-y-0 mt-12 left-0 w-64 bg-gray-900 text-white z-40">
-
+    <!-- Sidebar -->
+    <aside class="sidebar">
         <nav class="mt-5 px-2">
             <a href="dashboard.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
                 <i class="fas fa-home mr-3"></i> Tableau de bord
@@ -68,12 +119,13 @@ $cours = $conn->query("
                 <i class="fas fa-tags mr-3"></i> Tags
             </a>
             <a href="supprimer.php" class="group flex items-center px-4 py-3 text-gray-300 hover:bg-gray-700 rounded-md">
-                <i class="fas fa-tags mr-3"></i> supprimer
+                <i class="fas fa-trash mr-3"></i> Supprimer
             </a>
         </nav>
-    </div>
+    </aside>
 
-    <div class="ml-64 p-8">
+    <!-- Contenu principal -->
+    <div class="main-content">
         <h2 class="text-2xl font-bold mb-6 mt-11">Statistiques Globales</h2>
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="bg-white rounded-lg shadow p-6">
@@ -132,7 +184,7 @@ $cours = $conn->query("
                             <p class="text-sm text-gray-500">Tags: <?php echo htmlspecialchars($cour['tags']); ?></p>
                         </div>
                         <div class="px-4 py-4 bg-gray-50">
-                        <a href="supprimer.php?id=<?php echo $cour['id']; ?>" onclick="return confirm('Supprimer ce cours ?');" class="bg-red-500 text-white py-2 px-4 rounded text-sm">Supprimer</a></div>
+                        </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
