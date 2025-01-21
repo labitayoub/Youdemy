@@ -86,8 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_category'])) {
 
             <nav class="hidden md:flex items-center gap-6">
                 <a href="../../index.php" class="hover:text-blue-600">Accueil</a>
-                <a href="#about" class="hover:text-blue-600">À propos</a>
-                <a href="#courses" class="hover:text-blue-600">Cours</a>
+                <a href="../../index.php" class="hover:text-blue-600">À propos</a>
                 <a href="#admin" class="hover:text-blue-600">
                     <i class="fas fa-user-circle"></i>
                     <span class="ml-2">Admin</span>

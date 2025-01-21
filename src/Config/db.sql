@@ -8,7 +8,7 @@ CREATE TABLE Users (
     email VARCHAR(250) UNIQUE NOT NULL,
     password VARCHAR(250) NOT NULL,
     role ENUM('Etudiant', 'Enseignant', 'Administrateur') NOT NULL,
-    compte_statut ENUM('Actif', 'Non Actif', 'Suspendu', 'Supprimé') DEFAULT 'Non Actif' NOT NULL
+    compte_statut ENUM('Actif', 'Non Actif', 'Suspendu') DEFAULT 'Non Actif' NOT NULL
 );
 
 CREATE TABLE Categorie (
