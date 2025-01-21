@@ -7,15 +7,16 @@ use App\Config\Database;
 $db = new Database();
 $conn = $db->connect();
 
-// Vérifier si l'utilisateur est connecté et a le rôle d'étudiant
+
 $isLoggedIn = isset($_SESSION['users']) && $_SESSION['users']['role'] === 'Etudiant';
 $userId = $isLoggedIn ? $_SESSION['users']['id'] : null;
-
-// Traitement de l'inscription à un cours
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id']) && $isLoggedIn) {
     $courseId = $_POST['course_id'];
-    $stmt = $conn->prepare("INSERT INTO inscriptions (user_id, cours_id) VALUES (:user_id, :cours_id)");
-    $stmt->execute(['user_id' => $userId, 'cours_id' => $courseId]);
+    $stmt = $conn->prepare("INSERT INTO DateInscription (etudiant_id, cours_id) VALUES (:etudiant_id, :cours_id)");
+    $stmt->execute(['etudiant_id' => $userId, 'cours_id' => $courseId]);
+
+    header('Location: users/etudiant/dashboard.php');
+    exit(); // Assurez-vous de terminer l'exécution du script après la redirection
 }
 
 $cours = $conn->query("
@@ -135,7 +136,6 @@ $cours = $conn->query("
             }
         }
 
-        // Simuler l'affichage des vidéos après connexion
         const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
         if (isLoggedIn) {
             document.querySelectorAll('.bg-blue-600').forEach(button => {
