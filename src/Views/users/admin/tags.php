@@ -83,7 +83,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_tag'])) {
         <div class="max-w-full mx-auto px-4 py-3 flex justify-between items-center">
             <a href="../../Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>
 
-            <!-- Liens de navigation -->
             <nav class="hidden md:flex items-center gap-6">
                 <a href="../../index.php" class="hover:text-blue-600">Accueil</a>
                 <a href="../../index.php" class="hover:text-blue-600">À propos</a>
