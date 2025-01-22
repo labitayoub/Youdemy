@@ -17,6 +17,7 @@ $tagController = new TagController();
 
 $tags = $conn->query("SELECT * FROM Tag")->fetchAll(PDO::FETCH_ASSOC);
 
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_tags'])) {
     $tagsInput = $_POST['tags'];
     $tagsArray = explode(',', $tagsInput);

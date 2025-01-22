@@ -2,7 +2,7 @@
 session_start();
 
 if (!isset($_SESSION['users'])) {
-    header('Location: ../../../../auth/Login.php');
+    header('Location: ../../auth/Login.php');
     exit();
 }
 require_once("../../../../vendor/autoload.php");
