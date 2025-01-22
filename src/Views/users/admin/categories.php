@@ -17,14 +17,14 @@ $categorieController = new CategorieController();
 
 $categories = $conn->query("SELECT * FROM Categorie")->fetchAll(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_category'])) {
+if (isset($_POST['add_category'])) {
     $categoryName = $_POST['category_name'];
     $categorieController->createCategory($categoryName);
     header("Location: categories.php");
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_category'])) {
+if (isset($_POST['edit_category'])) {
     $categoryId = $_POST['category_id'];
     $newCategoryName = $_POST['new_category_name'];
     $categorieController->updateCategory($categoryId, $newCategoryName);
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_category'])) {
     exit();
 }
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_category'])) {
+if (isset($_POST['delete_category'])) {
     $categoryId = $_POST['category_id'];
     $categorieController->deleteCategory($categoryId);
     header("Location: categories.php");

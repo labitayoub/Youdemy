@@ -68,5 +68,7 @@ class UserModel
         $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
 
         return $stmt->execute();
+      
+
     }
 }
