@@ -17,7 +17,7 @@ $userId = $_SESSION['users']['id'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['unsubscribe_course_id'])) {
     $courseId = $_POST['unsubscribe_course_id'];
-    $stmt = $conn->prepare("DELETE FROM DateInscription WHERE etudiant_id = :etudiant_id AND cours_id = :cours_id");
+    $stmt = $conn->prepare("DELETE FROM inscription WHERE etudiant_id = :etudiant_id AND cours_id = :cours_id");
     $stmt->execute(['etudiant_id' => $userId, 'cours_id' => $courseId]);
     header('Location: dashboard.php');
     exit();
@@ -33,8 +33,8 @@ $stmt = $conn->prepare("
     LEFT JOIN coursTag ON cours.id = coursTag.cours_id
     LEFT JOIN tag ON coursTag.tag_id = tag.id
     JOIN users ON cours.user_id = users.id
-    JOIN DateInscription ON cours.id = DateInscription.cours_id
-    WHERE DateInscription.etudiant_id = :etudiant_id
+    JOIN inscription ON cours.id = inscription.cours_id
+    WHERE inscription.etudiant_id = :etudiant_id
     GROUP BY cours.id
 ");
 
