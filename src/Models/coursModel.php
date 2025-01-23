@@ -15,7 +15,6 @@ class CoursModel {
         $this->connexion = $db->connect();
     }
 
-    // Récupérer les cours liés à un enseignant spécifique
     public function getCoursByEnseignant($enseignantId) {
         try {
             $query = "
@@ -37,7 +36,6 @@ class CoursModel {
         }
     }
 
-    // Récupérer les statistiques pour l'enseignant connecté
     public function getStatistiquesByEnseignant($enseignantId) {
         try {
             $statistiques = [
@@ -51,7 +49,6 @@ class CoursModel {
         }
     }
 
-    // Ajouter un cours
     public function ajouterCours(Cours $cours) {
         try {
             $query = "INSERT INTO cours (titre, description, contenu, categorie_id, user_id) 
@@ -70,7 +67,6 @@ class CoursModel {
         }
     }
 
-    // Mettre à jour un cours
     public function mettreAJourCours(Cours $cours) {
         try {
             $query = "UPDATE cours 
@@ -92,7 +88,6 @@ class CoursModel {
         }
     }
 
-    // Supprimer un cours
     public function supprimerCours($id) {
         try {
             $query = "DELETE FROM cours WHERE id = :id";
@@ -104,7 +99,6 @@ class CoursModel {
         }
     }
 
-    // Ajouter un tag à un cours
     public function ajouterTagAuCours($coursId, $tagId) {
         try {
             $query = "INSERT INTO coursTag (cours_id, tag_id) VALUES (:cours_id, :tag_id)";
@@ -119,7 +113,6 @@ class CoursModel {
         }
     }
 
-    // Supprimer les tags d'un cours
     public function supprimerTagsDuCours($coursId) {
         try {
             $query = "DELETE FROM coursTag WHERE cours_id = :cours_id";

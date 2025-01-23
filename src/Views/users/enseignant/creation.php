@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
     $titre = $_POST['titre'];
     $description = $_POST['description'];
     $contenu = isset($_POST['contenu_course']) ? $_POST['contenu_course'] : null;
-    $user_id = $_SESSION['users']['id']; // Récupérer l'ID de l'utilisateur connecté
+    $user_id = $_SESSION['users']['id'];
     $categorie_id = $_POST['categorie_id'];
     $selectedTags = isset($_POST['tags']) ? $_POST['tags'] : [];
 
@@ -100,7 +100,6 @@ if (isset($_POST['submit'])) {
     </style>
 </head>
 <body class="bg-gray-100">
-    <!-- Navbar -->
     <header class="navbar">
         <div class="max-w-full mx-auto px-4 py-3 flex justify-between items-center">
             <a href="../../Views/index.php" class="text-2xl font-bold text-blue-600">Youdemy</a>

@@ -22,7 +22,7 @@ class CoursController {
 
     public function AjouteCours($titre, $description, $contenu, $categorie_id, $user_id, $selectedTags = []) {
         $cours = new Cours(null, $titre, $description, $contenu, $categorie_id, $user_id);
-        $coursId = $this->coursModel->ajouterCours($cours);  // Correct method name
+        $coursId = $this->coursModel->ajouterCours($cours);
 
         if (!empty($selectedTags)) {
             foreach ($selectedTags as $tagId) {

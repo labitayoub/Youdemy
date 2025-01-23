@@ -15,18 +15,16 @@ $conn = $db->connect();
 
 $users = $conn->query("SELECT * FROM Users WHERE role = 'Enseignant'")->fetchAll(PDO::FETCH_ASSOC);
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['user_id'])) {
+if ( isset($_POST['user_id'])) {
     $user_id = $_POST['user_id'];
     $nouveau_statut = $_POST['status'];
 
     $update_sql = "UPDATE users SET compte_statut = :compte_statut WHERE id = :user_id";
-    $params = [
-        'compte_statut' => $nouveau_statut,
-        'user_id' => $user_id
-    ];
-
+  
     try {
         $stmt = $conn->prepare($update_sql);
+        $stmt->bindParam(':compte_statut', $nouveau_statut);
+        $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
         $stmt->execute($params);
         header("Location:../admin/enseignant.php");
         exit();

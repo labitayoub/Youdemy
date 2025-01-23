@@ -8,30 +8,30 @@ class CategorieController {
 
     public function createCategory($categoryName) {
         $categorieModels = new CategorieModels();
-        return $categorieModels->addCategory($categoryName);
+         $categorieModels->addCategory($categoryName);
     }
 
   
     public function deleteCategory($categoryId) {
         $categorieModels = new CategorieModels();
-        return $categorieModels->removeCategory($categoryId);
+        $categorieModels->removeCategory($categoryId);
     }
 
 
     public function updateCategory($categoryId, $newCategoryName) {
         $categorieModels = new CategorieModels();
-        return $categorieModels->editCategory($categoryId, $newCategoryName);
+        $categorieModels->editCategory($categoryId, $newCategoryName);
     }
 
  
     public function getAllCategories() {
         $categorieModels = new CategorieModels();
-        return $categorieModels->getAllCategories();
+         $categorieModels->getAllCategories();
     }
 
   
     public function getCategoryById($categoryId) {
         $categorieModels = new CategorieModels();
-        return $categorieModels->getCategoryById($categoryId);
+         $categorieModels->getCategoryById($categoryId);
     }
 }

@@ -1,3 +1,12 @@
+<?php
+session_start();
+if(isset($_SESSION['users'])){
+
+    header('Location:../../Views/index.php');
+    }
+?>
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>

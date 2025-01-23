@@ -7,4 +7,5 @@ use App\Controllers\AuthController;
 
 $authController = new AuthController();
 $authController->logout();
+
 ?>

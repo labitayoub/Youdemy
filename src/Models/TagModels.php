@@ -23,7 +23,7 @@ class TagModels {
             return $this->connexion->lastInsertId();
         } catch (PDOException $e) {
             error_log("Erreur lors de l'ajout du tag : " . $e->getMessage());
-            return false;
+            
         }
     }
 
@@ -36,7 +36,7 @@ class TagModels {
             return $stmt->execute();
         } catch (PDOException $e) {
             error_log("Erreur lors de la suppression du tag : " . $e->getMessage());
-            return false;
+            
         }
     }
 
@@ -48,7 +48,7 @@ class TagModels {
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
             error_log("Erreur lors de la récupération des tags : " . $e->getMessage());
-            return [];
+          
         }
     }
 }

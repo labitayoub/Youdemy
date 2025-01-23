@@ -12,7 +12,7 @@ $isLoggedIn = isset($_SESSION['users']) && $_SESSION['users']['role'] === 'Etudi
 $userId = $isLoggedIn ? $_SESSION['users']['id'] : null;
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id']) && $isLoggedIn) {
     $courseId = $_POST['course_id'];
-    $stmt = $conn->prepare("INSERT INTO DateInscription (etudiant_id, cours_id) VALUES (:etudiant_id, :cours_id)");
+    $stmt = $conn->prepare("INSERT INTO inscription (etudiant_id, cours_id) VALUES (:etudiant_id, :cours_id)");
     $stmt->execute(['etudiant_id' => $userId, 'cours_id' => $courseId]);
 
     header('Location: users/etudiant/dashboard.php');
