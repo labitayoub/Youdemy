@@ -131,8 +131,8 @@ $cours = $conn->query("
             const image = document.getElementById(`image-${courseId}`);
 
             if (video && image) {
-                video.style.display = 'block';
-                image.style.display = 'none';
+                video.style.display = 'none';
+                image.style.display = 'block';
             }
         }
 

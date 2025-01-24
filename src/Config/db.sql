@@ -87,7 +87,7 @@ VALUES
 (3, 5),
 (4, 4);
 
-INSERT INTO DateInscription (etudiant_id, cours_id, date_inscription)
+INSERT INTO Inscription (etudiant_id, cours_id, date_inscription)
 VALUES 
 (1, 1, '2025-01-10 10:00:00'),
 (3, 2, '2025-01-11 15:00:00'),
