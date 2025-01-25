@@ -15,7 +15,7 @@ $conn = $db->connect();
 
 $userId = $_SESSION['users']['id'];
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['unsubscribe_course_id'])) {
+if (isset($_POST['unsubscribe_course_id'])) {
     $courseId = $_POST['unsubscribe_course_id'];
     $stmt = $conn->prepare("DELETE FROM inscription WHERE etudiant_id = :etudiant_id AND cours_id = :cours_id");
     $stmt->execute(['etudiant_id' => $userId, 'cours_id' => $courseId]);

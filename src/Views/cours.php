@@ -10,7 +10,7 @@ $conn = $db->connect();
 
 $isLoggedIn = isset($_SESSION['users']) && $_SESSION['users']['role'] === 'Etudiant';
 $userId = $isLoggedIn ? $_SESSION['users']['id'] : null;
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['course_id']) && $isLoggedIn) {
+if (isset($_POST['course_id']) && $isLoggedIn) {
     $courseId = $_POST['course_id'];
     $stmt = $conn->prepare("INSERT INTO inscription (etudiant_id, cours_id) VALUES (:etudiant_id, :cours_id)");
     $stmt->execute(['etudiant_id' => $userId, 'cours_id' => $courseId]);
@@ -131,8 +131,8 @@ $cours = $conn->query("
             const image = document.getElementById(`image-${courseId}`);
 
             if (video && image) {
-                video.style.display = 'block';
-                image.style.display = 'none';
+                video.style.display = 'none';
+                image.style.display = 'block';
             }
         }
 
